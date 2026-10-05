@@ -9,24 +9,25 @@ A production-ready, high-throughput full-stack URL shortener system built with *
 ```mermaid
 flowchart TD
     Client["Client / Browser"]
-    Frontend["React 18 + TypeScript UI\n(Vite @ port 5173)"]
-    Backend["Spring Boot 3 API / Redirect\n(@ port 8080)"]
-    Redis[("Redis Cache\n(Key: url:{shortCode})")]
-    Postgres[("PostgreSQL 16\n(Table: urls)")]
-    AsyncPool["Async Thread Pool\n(@Async Click Counter)"]
+    Frontend["React 18 + TypeScript UI<br/>(Vite @ port 5173)"]
+    Backend["Spring Boot 3 API / Redirect<br/>(@ port 8080)"]
+    Redis[("Redis Cache<br/>(Key: url:shortCode)")]
+    Postgres[("PostgreSQL 16<br/>(Table: urls)")]
+    AsyncPool["Async Thread Pool<br/>(@Async Click Counter)"]
 
-    Client -->|User UI Interaction| Frontend
-    Frontend -->|REST APIs| Backend
-    Client -->|GET /s/{shortCode}| Backend
+    Client -->|"User UI Interaction"| Frontend
+    Frontend -->|"REST APIs"| Backend
+    Client -->|"GET /s/:shortCode"| Backend
     
-    Backend -->|1. Check Cache| Redis
-    Redis -.->|Cache Hit| Backend
-    Backend -.->|2. Cache Miss: Query DB| Postgres
-    Backend -->|3. Populate Cache| Redis
-    Backend -->|4. Non-blocking Task| AsyncPool
-    AsyncPool -->|Atomic Increment| Postgres
-    Backend -->|5. HTTP 302 Location| Client
+    Backend -->|"1. Check Cache"| Redis
+    Redis -.->|"Cache Hit"| Backend
+    Backend -.->|"2. Cache Miss: Query DB"| Postgres
+    Backend -->|"3. Populate Cache"| Redis
+    Backend -->|"4. Non-blocking Task"| AsyncPool
+    AsyncPool -->|"Atomic Increment"| Postgres
+    Backend -->|"5. HTTP 302 Location"| Client
 ```
+
 
 ---
 
